@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AI Website Builder</title>
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-code"></i>
+                    <span>AI Builder</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="projects">
+                    <i class="fas fa-folder"></i>
+                    <span>My Projects</span>
+                </a>
+                <a href="#" class="nav-item" data-section="create">
+                    <i class="fas fa-plus"></i>
+                    <span>Create New</span>
+                </a>
+                <a href="#" class="nav-item" data-section="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <span id="userName">Loading...</span>
+                        <small id="userEmail">Loading...</small>
+                    </div>
+                </div>
+                <button id="logoutBtn" class="btn btn-outline">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Projects Section -->
+            <section id="projectsSection" class="content-section">
+                <div class="section-header">
+                    <h1>My Projects</h1>
+                    <button id="newProjectBtn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        New Project
+                    </button>
+                </div>
+                
+                <div class="projects-grid" id="projectsGrid">
+                    <!-- Projects will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Create Section -->
+            <section id="createSection" class="content-section" style="display: none;">
+                <div class="section-header">
+                    <h1>Create New Website</h1>
+                </div>
+                
+                <div class="create-container">
+                    <div class="prompt-input-section">
+                        <label for="createPrompt">Describe your website</label>
+                        <textarea 
+                            id="createPrompt" 
+                            placeholder="Describe the website you want to create..."
+                            rows="4"
+                        ></textarea>
+                        <button id="createBtn" class="btn btn-primary">
+                            <i class="fas fa-magic"></i>
+                            Generate Website
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settingsSection" class="content-section" style="display: none;">
+                <div class="section-header">
+                    <h1>Settings</h1>
+                </div>
+                
+                <div class="settings-container">
+                    <div class="settings-group">
+                        <h3>Account Information</h3>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="settingsEmail" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Display Name</label>
+                            <input type="text" id="settingsName">
+                        </div>
+                        <button class="btn btn-primary">Update Profile</button>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <h3>Preferences</h3>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="emailNotifications">
+                                Email notifications
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="darkMode">
+                                Dark mode
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="modalTitle">Project Preview</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="project-actions">
+                    <button id="downloadProjectBtn" class="btn btn-primary">
+                        <i class="fas fa-download"></i>
+                        Download
+                    </button>
+                    <button id="editProjectBtn" class="btn btn-outline">
+                        <i class="fas fa-edit"></i>
+                        Edit
+                    </button>
+                    <button id="deleteProjectBtn" class="btn btn-danger">
+                        <i class="fas fa-trash"></i>
+                        Delete
+                    </button>
+                </div>
+                <div class="project-preview">
+                    <iframe id="modalPreviewFrame" src="about:blank"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK v9 (compat version) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v0 - Generate UI with simple text prompts</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="nav-left">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <span class="logo-text">v0</span>
+                    </div>
+                </div>
+                <div class="nav-right">
+                    <button id="loginBtn" class="btn btn-ghost">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign in
+                    </button>
+                    <button id="signupBtn" class="btn btn-primary">
+                        Sign up
+                    </button>
+                    <button id="dashboardBtn" class="btn btn-ghost" style="display: none;">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </button>
+                    <button id="logoutBtn" class="btn btn-ghost" style="display: none;">
+                        Sign out
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="fas fa-sparkles"></i>
+                        <span>Powered by Advanced AI</span>
+                    </div>
+                    <h1 class="hero-title">
+                        Generate beautiful websites with
+                        <span class="gradient-text">simple text prompts</span>
+                    </h1>
+                    <p class="hero-description">
+                        Describe your vision and watch as our AI creates stunning, responsive websites in seconds. 
+                        From portfolios to e-commerce stores, bring your ideas to life instantly.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">50K+</span>
+                            <span class="stat-label">Websites Created</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">99.9%</span>
+                            <span class="stat-label">Uptime</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">< 15s</span>
+                            <span class="stat-label">Generation Time</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chat Interface -->
+            <section class="chat-section">
+                <div class="chat-container">
+                    <!-- Auth Notice -->
+                    <div id="authNotice" class="auth-notice" style="display: none;">
+                        <div class="auth-notice-content">
+                            <i class="fas fa-lock"></i>
+                            <div>
+                                <h3>Sign in required</h3>
+                                <p>Please sign in to start generating websites with AI</p>
+                            </div>
+                            <button class="btn btn-primary" onclick="document.getElementById('loginBtn').click()">
+                                Sign in
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Chat Messages -->
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message assistant-message">
+                            <div class="message-avatar">
+                                <div class="avatar-icon">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-text">
+                                    Hi! I'm v0, your AI website builder. Describe the website you'd like to create, and I'll build it for you in seconds. Try something like "Create a modern portfolio website for a photographer" or "Build a landing page for a tech startup".
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Input -->
+                    <div class="chat-input-container">
+                        <div class="input-wrapper">
+                            <textarea 
+                                id="promptInput" 
+                                placeholder="Describe your website... (e.g., 'Create a modern portfolio website for a photographer with a dark theme')"
+                                rows="1"
+                            ></textarea>
+                            <button id="generateBtn" class="send-button">
+                                <i class="fas fa-arrow-up"></i>
+                            </button>
+                        </div>
+                        <div class="input-footer">
+                            <span class="input-hint">
+                                <i class="fas fa-info-circle"></i>
+                                Press Enter to send, Shift+Enter for new line
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Example Prompts -->
+                    <div class="example-prompts">
+                        <div class="example-header">
+                            <h4>Try these examples</h4>
+                        </div>
+                        <div class="example-grid">
+                            <button class="example-card" onclick="useExamplePrompt('Create a modern portfolio website for a photographer with a dark theme and image gallery')">
+                                <div class="example-icon">📸</div>
+                                <div class="example-content">
+                                    <div class="example-title">Photography Portfolio</div>
+                                    <div class="example-desc">Dark theme with image gallery</div>
+                                </div>
+                            </button>
+                            <button class="example-card" onclick="useExamplePrompt('Build a landing page for a tech startup with pricing section and testimonials')">
+                                <div class="example-icon">🚀</div>
+                                <div class="example-content">
+                                    <div class="example-title">Startup Landing</div>
+                                    <div class="example-desc">With pricing and testimonials</div>
+                                </div>
+                            </button>
+                            <button class="example-card" onclick="useExamplePrompt('Make a restaurant website with menu, location, and online ordering')">
+                                <div class="example-icon">🍽️</div>
+                                <div class="example-content">
+                                    <div class="example-title">Restaurant Site</div>
+                                    <div class="example-desc">Menu and online ordering</div>
+                                </div>
+                            </button>
+                            <button class="example-card" onclick="useExamplePrompt('Design a personal blog with sidebar, article grid, and contact form')">
+                                <div class="example-icon">✍️</div>
+                                <div class="example-content">
+                                    <div class="example-title">Personal Blog</div>
+                                    <div class="example-desc">With sidebar and articles</div>
+                                </div>
+                            </button>
+                            <button class="example-card" onclick="useExamplePrompt('Create an e-commerce store for handmade jewelry with product catalog')">
+                                <div class="example-icon">💎</div>
+                                <div class="example-content">
+                                    <div class="example-title">E-commerce Store</div>
+                                    <div class="example-desc">Product catalog and cart</div>
+                                </div>
+                            </button>
+                            <button class="example-card" onclick="useExamplePrompt('Build a corporate website for a law firm with team profiles and services')">
+                                <div class="example-icon">⚖️</div>
+                                <div class="example-content">
+                                    <div class="example-title">Corporate Site</div>
+                                    <div class="example-desc">Professional services</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Preview Section -->
+            <section class="preview-section" id="previewSection" style="display: none;">
+                <div class="preview-header">
+                    <div class="preview-title">
+                        <h3>Preview</h3>
+                        <span class="preview-subtitle">Your AI-generated website</span>
+                    </div>
+                    <div class="preview-actions">
+                        <button id="downloadBtn" class="btn btn-outline">
+                            <i class="fas fa-download"></i>
+                            Download HTML
+                        </button>
+                        <button id="saveBtn" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Save Project
+                        </button>
+                    </div>
+                </div>
+                <div class="preview-container">
+                    <div class="preview-toolbar">
+                        <div class="preview-controls">
+                            <button class="preview-control active" data-device="desktop" title="Desktop View">
+                                <i class="fas fa-desktop"></i>
+                            </button>
+                            <button class="preview-control" data-device="tablet" title="Tablet View">
+                                <i class="fas fa-tablet-alt"></i>
+                            </button>
+                            <button class="preview-control" data-device="mobile" title="Mobile View">
+                                <i class="fas fa-mobile-alt"></i>
+                            </button>
+                        </div>
+                        <div class="preview-url">
+                            <i class="fas fa-globe"></i>
+                            <span>localhost:preview</span>
+                        </div>
+                        <div class="preview-refresh">
+                            <button class="preview-control" onclick="refreshPreview()" title="Refresh">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="preview-frame-container">
+                        <iframe id="previewFrame" src="about:blank"></iframe>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Loading Modal -->
+    <div id="loadingModal" class="modal">
+        <div class="modal-content">
+            <div class="loading-container">
+                <div class="loading-spinner">
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                </div>
+                <h3>Generating your website...</h3>
+                <p>Our AI is crafting something beautiful for you</p>
+                <div class="loading-steps">
+                    <div class="step active">
+                        <i class="fas fa-brain"></i>
+                        <span>Analyzing your prompt</span>
+                    </div>
+                    <div class="step">
+                        <i class="fas fa-code"></i>
+                        <span>Writing code</span>
+                    </div>
+                    <div class="step">
+                        <i class="fas fa-paint-brush"></i>
+                        <span>Styling design</span>
+                    </div>
+                    <div class="step">
+                        <i class="fas fa-check"></i>
+                        <span>Finalizing</span>
+                    </div>
+                </div>
+                <div class="loading-progress">
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
