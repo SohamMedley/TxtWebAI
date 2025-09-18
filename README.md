@@ -60,6 +60,19 @@ TxtWeb AI is an advanced web application that enables users to generate beautifu
 6. **Open in browser**
    - Navigate to `http://localhost:5000`
 
+## ▶️ Quick Start (Windows)
+
+```powershell
+# Navigate to project directory
+cd path\to\WebBuilder-main
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the application
+python app.py
+```
+
 ## 💻 Usage
 
 ### Creating a Website
