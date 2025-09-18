@@ -1,222 +1,148 @@
-# AI Website Builder
+# TxtWeb AI - Generate Websites from Text Prompts
 
-A powerful AI-driven website builder similar to v0.dev that allows users to generate beautiful, functional websites using natural language prompts.
+TxtWeb AI is an advanced web application that enables users to generate beautiful, responsive websites simply by describing them in natural language. Powered by AI, it transforms text prompts into functional HTML/CSS code in seconds.
 
-## Features
+![TxtWeb AI](images/screenshot.png)
 
-- 🤖 **AI-Powered Generation**: Create websites using natural language descriptions
-- 🔐 **Authentication**: Secure login/signup with Firebase Auth
-- 📱 **Responsive Design**: Modern, mobile-first UI design
-- 💾 **Project Management**: Save, organize, and manage your generated websites
-- ⬇️ **Easy Export**: Download websites as single HTML files
-- ⚡ **Fast Generation**: Get results in 10-15 seconds
-- 🎨 **Beautiful UI**: Clean, intuitive interface inspired by modern design
+## ✨ Features
 
-## Tech Stack
+- **AI-Powered Website Generation**: Create complete websites from simple text descriptions
+- **Real-time Preview**: View your generated website instantly with device responsiveness testing
+- **Project Management**: Save, edit, and manage all your website projects
+- **User Authentication**: Secure account system with email and Google sign-in options
+- **Database Storage**: Cloud-based storage of all your website projects
+- **Example Templates**: Pre-configured prompts for common website types
 
-### Frontend
-- **HTML5/CSS3/JavaScript**: Pure vanilla implementation (no React/Vue)
-- **Firebase SDK**: Authentication and real-time database
-- **Modern CSS**: Flexbox, Grid, CSS Variables, Animations
+## 🛠️ Tech Stack
 
-### Backend
-- **Python/Flask**: Lightweight web framework
-- **Firebase Admin**: Server-side Firebase integration
-- **Groq API**: AI model integration for website generation
-- **Hugging Face**: Additional AI model support
+- **Frontend**: HTML5, CSS3, JavaScript
+- **Backend**: Python, Flask
+- **Database**: Firebase Firestore
+- **Authentication**: Firebase Authentication
+- **Deployment**: Gunicorn WSGI server
 
-### Database
-- **Firebase Firestore**: NoSQL document database
-- **Real-time sync**: Live updates across devices
+## 📋 Prerequisites
 
-## Project Structure
+- Python 3.8 or higher
+- Firebase account with Firestore and Authentication enabled
+- Firebase service account credentials
 
-\`\`\`
-ai-website-builder/
-├── app.py                 # Main Flask application
-├── requirements.txt       # Python dependencies
-├── README.md             # Project documentation
-├── scripts/              # Database and utility scripts
-│   ├── setup_database.py    # Initial database setup
-│   └── migrate_database.py  # Database migrations
-├── static/               # Static assets
-│   ├── css/             # Stylesheets
-│   │   ├── style.css       # Main page styles
+## 🚀 Installation
+
+1. **Clone the repository**
+   ```
+   git clone https://github.com/yourusername/txtweb-ai.git
+   cd txtweb-ai
+   ```
+
+2. **Install dependencies**
+   ```
+   pip install -r requirements.txt
+   ```
+
+3. **Set up Firebase credentials**
+   - Create a `firebase-credentials.json` file in the project root
+   - Add your Firebase service account key
+
+4. **Environment variables**
+   - Create a `.env` file in the project root
+   - Add required environment variables:
+     ```
+     FLASK_SECRET_KEY=your_secret_key
+     AI_API_KEY=your_ai_service_key
+     ```
+
+5. **Run the application**
+   ```
+   python app.py
+   ```
+
+6. **Open in browser**
+   - Navigate to `http://localhost:5000`
+
+## 💻 Usage
+
+### Creating a Website
+
+1. Sign up or log in to your account
+2. Enter a description of your desired website in the prompt field
+   - Example: "Create a modern portfolio website for a photographer with a dark theme and image gallery"
+3. Click "Generate" or press Enter
+4. Wait for the AI to generate your website (typically under 15 seconds)
+5. Preview your website in desktop, tablet, or mobile view
+6. Download the HTML file or save the project to your dashboard
+
+### Managing Projects
+
+1. Navigate to the Dashboard
+2. View all your saved projects
+3. Click on any project to:
+   - Preview the website
+   - Download the HTML
+   - Edit or delete the project
+
+## 🗂️ Project Structure
+
+```
+txtweb-ai/
+├── app.py                  # Main Flask application
+├── requirements.txt        # Python dependencies
+├── firebase_manager.py     # Firebase integration
+├── static/
+│   ├── css/                # Stylesheets
+│   │   ├── style.css       # Main site styles
 │   │   ├── auth.css        # Authentication page styles
 │   │   └── dashboard.css   # Dashboard styles
-│   └── js/              # JavaScript files
-│       ├── main.js         # Main page functionality
-│       ├── auth.js         # Authentication logic
-│       └── dashboard.js    # Dashboard functionality
-└── templates/            # HTML templates
-    ├── index.html          # Landing page with chat interface
-    ├── auth.html           # Login/signup page
-    └── dashboard.html      # User dashboard
-\`\`\`
+│   └── js/                 # JavaScript files
+│       ├── main.js         # Main site functionality
+│       ├── auth.js         # Authentication scripts
+│       └── dashboard.js    # Dashboard scripts
+└── templates/
+    ├── index.html          # Homepage
+    ├── auth.html           # Authentication page
+    └── dashboard.html      # Dashboard page
+```
 
-## Setup Instructions
+## 🔧 Database Structure
 
-### 1. Prerequisites
+```
+Firebase Firestore/
+├── users/
+│   └── {user_id}/
+│       ├── name
+│       ├── email
+│       ├── createdAt
+│       └── settings/
+│           ├── emailNotifications
+│           ├── darkMode
+│           ├── autoSave
+│           └── defaultPrivacy
+└── projects/
+    └── {project_id}/
+        ├── user_id
+        ├── title
+        ├── prompt
+        ├── code
+        ├── created_at
+        ├── updated_at
+        ├── tags
+        └── is_public
+```
 
-- Python 3.8+
-- Firebase project
-- Groq API key
-- Hugging Face token
-
-### 2. Firebase Setup
-
-1. Create a new Firebase project at [Firebase Console](https://console.firebase.google.com/)
-2. Enable Authentication (Email/Password and Google)
-3. Create a Firestore database
-4. Download the service account key JSON file
-5. Update the Firebase config in the JavaScript files
-
-### 3. Environment Setup
-
-1. Clone the repository:
-\`\`\`bash
-git clone <repository-url>
-cd ai-website-builder
-\`\`\`
-
-2. Create a virtual environment:
-\`\`\`bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-\`\`\`
-
-3. Install dependencies:
-\`\`\`bash
-pip install -r requirements.txt
-\`\`\`
-
-4. Set up environment variables:
-\`\`\`bash
-export GROQ_API_KEY="your-groq-api-key"
-export HUGGING_FACE_TOKEN="your-hugging-face-token"
-\`\`\`
-
-### 4. Database Setup
-
-Run the database setup script:
-\`\`\`bash
-python scripts/setup_database.py
-\`\`\`
-
-### 5. Configuration
-
-Update the following files with your API keys and Firebase config:
-
-- `app.py`: Update API keys and Firebase credentials path
-- `static/js/*.js`: Update Firebase configuration objects
-
-### 6. Run the Application
-
-\`\`\`bash
-python app.py
-\`\`\`
-
-The application will be available at `http://localhost:5000`
-
-## API Endpoints
-
-### Website Generation
-- `POST /api/generate-website`: Generate a website from a prompt
-- `GET /api/get-projects/<user_id>`: Get user's projects
-- `GET /api/download-project/<project_id>`: Download a project
-
-### Authentication
-- Handled by Firebase Auth on the frontend
-- User data stored in Firestore
-
-## Usage
-
-### 1. Authentication
-- Visit `/auth` to login or create an account
-- Support for email/password and Google authentication
-
-### 2. Generate Websites
-- Use the chat interface on the homepage
-- Enter a natural language description of your desired website
-- Wait 10-15 seconds for AI generation
-- Preview the result in the embedded iframe
-
-### 3. Manage Projects
-- Access your dashboard to view all created projects
-- Download projects as single HTML files
-- Delete unwanted projects
-
-### 4. Example Prompts
-- "Create a modern portfolio website for a photographer"
-- "Build a landing page for a tech startup with pricing section"
-- "Make a restaurant website with menu and contact information"
-- "Design a blog layout with sidebar and article grid"
-
-## AI Integration
-
-The application uses multiple AI services:
-
-- **Groq API**: Primary AI model for website generation
-- **Hugging Face**: Backup AI model support
-- **Custom Prompts**: Optimized system prompts for web development
-
-## Security Features
-
-- Firebase Authentication for secure user management
-- Server-side API key management
-- Input sanitization and validation
-- CORS protection
-- Secure file downloads
-
-## Performance Optimizations
-
-- Lazy loading of preview iframes
-- Efficient database queries with proper indexing
-- Client-side caching of user data
-- Optimized CSS and JavaScript delivery
-
-## Deployment
-
-### Production Deployment
-
-1. Set up a production Firebase project
-2. Configure environment variables on your hosting platform
-3. Update API endpoints and Firebase config for production
-4. Deploy using your preferred platform (Heroku, Vercel, etc.)
-
-### Environment Variables for Production
-\`\`\`
-FLASK_ENV=production
-GROQ_API_KEY=your-production-groq-key
-HUGGING_FACE_TOKEN=your-production-hf-token
-FIREBASE_CREDENTIALS_PATH=path/to/production/credentials.json
-\`\`\`
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## License
+## 📝 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Support
+## 👥 Contributors
 
-For support and questions:
-- Create an issue on GitHub
-- Check the documentation
-- Review the example implementations
+- Your Name (@yourusername)
 
-## Roadmap
+## 🙏 Acknowledgements
 
-- [ ] Template library for quick starts
-- [ ] Advanced customization options
-- [ ] Team collaboration features
-- [ ] Version control for projects
-- [ ] Custom domain deployment
-- [ ] Advanced AI model options
-- [ ] Plugin system for extensions
+- Built with [Flask](https://flask.palletsprojects.com/)
+- Authentication by [Firebase](https://firebase.google.com/)
+- Icons from [Font Awesome](https://fontawesome.com/)
+
+---
+
+Made with ❤️ by Soham
